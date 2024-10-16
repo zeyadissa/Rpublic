@@ -39,15 +39,17 @@ extract_zipped <- function(files,pattern,ignore.case = F, xlsx_flag=F , xlsx_she
   }
 
   #Apply pattern filter
-  file_names <- file_names[grepl(pattern=pattern,x=file_names,ignore.case = ignore.case)]
+  file_names <- file_names[grepl(pattern=pattern,
+                                 x=file_names,
+                                 ignore.case = ignore.case)]
 
   #d
-  data <- lapply(file_names,
-                 function(x){
-                   if(tools::file_ext == 'csv'){
+  data <- lapply(X = file_names,
+                 FUN = function(X){
+                   if(tools::file_ext(X) == 'csv'){
 
                    dirty_data <- utils::unzip(zipfile = temp,
-                                       files = x,
+                                       files = X,
                                        exdir=tempdir())
 
                    clean_files(file=dirty_data,
@@ -57,7 +59,7 @@ extract_zipped <- function(files,pattern,ignore.case = F, xlsx_flag=F , xlsx_she
                                                      encoding = "UTF-8",...)
 
                    return(cleaned_data) } else {
-                     cleaned_data <- Rpublic::extract_sheets(files = x,
+                     cleaned_data <- Rpublic::extract_sheets(files = X,
                                              pattern = xlsx_sheet_pattern)
                      return(cleaned_data)
                    }

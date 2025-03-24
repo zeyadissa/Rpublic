@@ -22,7 +22,7 @@ extract_sheets <- function(files,pattern=''){
   #creates temp file to read in the data
   temp <- tempfile()
 
-  utils::download.file(files,temp)
+  utils::download.file(files,temp,mode='wb')
 
   data <- extract_excel_sheets(filename = temp, pattern = pattern)
 

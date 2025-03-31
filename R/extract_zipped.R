@@ -26,7 +26,7 @@ extract_zipped <- function(files,pattern,ignore.case = F, xlsx_flag=F , xlsx_she
   #Unzipping specific files is not possible, so file needs to be read in temp
   temp <- tempfile()
 
-  utils::download.file(files,temp,extdir=tempdir())
+  utils::download.file(files,temp,extdir=tempdir(),mode='wb')
 
   #Extract full list of file names.
   file_names <- utils::unzip(temp,list=T)$Name
